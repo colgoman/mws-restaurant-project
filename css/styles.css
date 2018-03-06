@@ -12,6 +12,11 @@ body {
 	margin: 0;
 	position:relative;
 }
+
+img.restaurant-img{
+    max-width:100%;
+}
+
 ul, li {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10pt;
@@ -145,7 +150,7 @@ nav h1 a {
   min-height: 380px;
   padding: 0 30px 25px;
   text-align: left;
-  width: 270px;
+  max-width: 100%;
 }
 #restaurants-list .restaurant-img {
   background-color: #ccc;
