@@ -11,4 +11,20 @@
 
 @media screen and (max-width:600px) {
 
+
+    #map {
+        order: 0;
+        width: 100%;
+    }
+
+    #restaurant-container {
+        order: 1;
+        width: 100%;
+
+    }
+
+    #reviews-container {
+        order: 2;
+        width: 100%;
+    }
 }
