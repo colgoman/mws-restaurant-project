@@ -258,6 +258,9 @@ nav h1 a {
 }
 #restaurant-img {
     width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 #restaurant-address {
     font-size: 12pt;
@@ -274,6 +277,9 @@ nav h1 a {
     text-align: center;
     text-transform: uppercase;
     width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 #restaurant-container, #reviews-container {
     border-bottom: 1px solid #d9d9d9;
