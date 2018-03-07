@@ -97,6 +97,7 @@ nav h1 a {
     background-color: #eee;
     font-size: 17px;
     margin: 0;
+    height: 20px;
 }
 
 /* Display list items side by side */
@@ -122,6 +123,8 @@ nav h1 a {
     color: #01447e;
     text-decoration: underline;
 }
+
+
 /* ====================== Map ====================== */
 #map {
     height: 400px;
