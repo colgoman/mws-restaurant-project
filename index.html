@@ -33,6 +33,18 @@
     </section>
   </main>
 
+  <script>
+      if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/service-worker.js')
+              .then(function(registration) {
+                  console.log('Registration successful, scope is:', registration.scope);
+              })
+              .catch(function(error) {
+                  console.log('Service worker registration failed, error:', error);
+              });
+      }
+  </script>
+
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtWk_HrC9q7aRVR-I14iQfKTh5hKIrJkc&libraries=places&callback=initMap"></script>
