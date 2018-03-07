@@ -151,14 +151,14 @@ nav h1 a {
   min-height: 380px;
   padding: 0 30px 25px;
   text-align: left;
-  max-width: 100%;
+    width: 270px;
 }
 #restaurants-list .restaurant-img {
   background-color: #ccc;
   display: block;
   margin: 0;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+
 }
 #restaurants-list li h1 {
   color: #f18200;
@@ -186,7 +186,7 @@ nav h1 a {
   text-transform: uppercase;
   max-width: 200px;
   max-height: 48px;
-  padding: 1.5em;
+    padding: 8px 30px 10px;
 }
 
 /* ====================== Restaurant Details ====================== */
@@ -198,15 +198,10 @@ nav h1 a {
 }
 .inside #map-container {
   background: blue none repeat scroll 0 0;
-  height: 87%;
-  position: fixed;
-  right: 0;
-  top: 80px;
-  width: 50%;
+  width: 100%;
 }
 .inside #map {
   background-color: #ccc;
-  height: 100%;
   width: 100%;
 }
 .inside #footer {
@@ -247,7 +242,6 @@ nav h1 a {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
   padding: 140px 40px 30px;
-  max-width: 50%;
 }
 #reviews-container {
   padding: 30px 40px 80px;
