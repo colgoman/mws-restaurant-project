@@ -77,7 +77,7 @@ nav h1 a {
     background-color: #eee;
     font-size: 17px;
     margin: 0;
-    width: calc(50% - 80px);
+    width: 100%;
 }
 
 /* Display list items side by side */
@@ -106,7 +106,7 @@ nav h1 a {
 /* ====================== Map ====================== */
 #map {
   height: 400px;
-  width: 100%;
+  max-width: 100%;
   background-color: #ccc;
 }
 /* ====================== Restaurant Filtering ====================== */
