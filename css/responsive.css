@@ -1,6 +1,16 @@
 @charset "utf-8";
 /* CSS Document */
 
-@media screen and (max-width:460px){
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+@media screen and (max-width:600px){
+
+
 
 }
