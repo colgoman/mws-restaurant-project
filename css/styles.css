@@ -40,6 +40,8 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   background-color: #f3f3f3;
   min-height: 100%;
   width:100%;
+  display:flex;
+  flex-direction: column;
 }
 #footer {
   background-color: #444;
@@ -112,6 +114,8 @@ nav h1 a {
   min-height: 50px;
   background-color: #3397DB;
   align-items: center;
+  display:flex;
+  flex-direction:column;
 }
 .filter-options h2 {
   color: white;
@@ -142,6 +146,8 @@ nav h1 a {
   margin: 0;
   padding: 30px 15px 60px;
   text-align: center;
+  display:flex;
+  flex-wrap:wrap;
 }
 #restaurants-list li {
   background-color: #fff;
@@ -152,6 +158,8 @@ nav h1 a {
   padding: 0 30px 25px;
   text-align: left;
     width: 270px;
+  display:flex;
+  flex-direction:column;
 }
 #restaurants-list .restaurant-img {
   background-color: #ccc;
@@ -242,6 +250,8 @@ nav h1 a {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
   padding: 140px 40px 30px;
+  display:flex;
+  flex-direction:column;
 }
 #reviews-container {
   padding: 30px 40px 80px;
@@ -256,6 +266,9 @@ nav h1 a {
 #reviews-list {
   margin: 0;
   padding: 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 #reviews-list li {
   background-color: #fff;
@@ -275,8 +288,13 @@ nav h1 a {
   color: #666;
 }
 
-
-
+/*Column element for flex box*/
+.column{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  alig-items:center;
+}
 
 
 
