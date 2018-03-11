@@ -295,6 +295,8 @@ nav h1 a {
 
 #restaurant-hours {
     align-items:flex-start;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #restaurant-hours td {
