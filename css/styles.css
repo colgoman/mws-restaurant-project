@@ -236,7 +236,7 @@ nav h1 a {
     line-height: 1.1;
 }
 #restaurant-img {
-    width: 90%;
+    width: 100%;
 }
 #restaurant-address {
     font-size: 12pt;
@@ -252,7 +252,7 @@ nav h1 a {
     padding: 2px 0;
     text-align: center;
     text-transform: uppercase;
-    width: 90%;
+    width: 100%;
 }
 #restaurant-container, #reviews-container {
     border-bottom: 1px solid #d9d9d9;
@@ -262,10 +262,6 @@ nav h1 a {
     flex-direction:column;
 
 }
-
-/*#reviews-container {
-  padding: 30px 40px 80px;
-}*/
 
 #reviews-container h2 {
     color: #f58500;
