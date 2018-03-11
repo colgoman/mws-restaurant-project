@@ -27,6 +27,25 @@ a:hover, a:focus {
     color: #3397db;
     text-decoration: none;
 }
+
+#restaurants-list > li > a:hover, #restaurants-list > li > a:focus {
+    color:white;
+    background: #3397db;
+    box-shadow: #0275d8;
+}
+
+select:focus, select:hover{
+    color: orange;
+    outline-color: orange;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 8px orange;
+}
+
+.filter-options select > a:hover. .filter-options select > a:focus{
+    color: red;
+}
+
 a img{
     border: none 0px #fff;
 }
