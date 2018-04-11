@@ -3,6 +3,7 @@
  */
 class DBHelper {
 
+
   /**
    * Database URL.
    * Change this to restaurants.json file location on your server.
@@ -10,6 +11,18 @@ class DBHelper {
   static get DATABASE_URL() {
     return `http://localhost:1337/restaurants`;
   }
+
+
+static idbOpen() {
+return idb.open('Restaurant_IDB', 1, function(upgradeDb){
+    var store = upgradeDb.createObjectStore('keyVal', {
+        keyPath: 'id'
+    });
+    store.createIndex('restaurant_id', 'id');
+});
+
+}
+
 
   /**
    * Fetch all restaurants.
