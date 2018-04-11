@@ -1,7 +1,15 @@
+//import idb from 'idb.js';
+//
+// const IDB_DB = 'restaurantDb';
+// const IDB_OBJ = 'restaurantObj';
+
+
+
 /**
  * Common database helper functions.
  */
 class DBHelper {
+
 
   /**
    * Database URL.
@@ -10,6 +18,18 @@ class DBHelper {
   static get DATABASE_URL() {
     return `http://localhost:1337/restaurants`;
   }
+
+
+static idbOpen() {
+return idb.open('Restaurant_IDB', 1, function(upgradeDb){
+    var store = upgradeDb.createObjectStore('keyVal', {
+        keyPath: 'id'
+    });
+    store.createIndex('restaurant_id', 'id');
+});
+
+}
+
 
   /**
    * Fetch all restaurants.
