@@ -12,13 +12,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchCuisines();
 });
 
-if (!('indexedDB' in window)) {
-    console.log('This browser doesn\'t support IndexedDB');
-}
-else{
-  console.log('indexedDB is supported');
-}
-
+// if (!('indexedDB' in window)) {
+//     console.log('This browser doesn\'t support IndexedDB');
+// }
+// else{
+//   console.log('indexedDB is supported, YES');
+// }
+//
 
 
 /**
