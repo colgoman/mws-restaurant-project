@@ -1,3 +1,10 @@
+//import idb from 'idb.js';
+//
+// const IDB_DB = 'restaurantDb';
+// const IDB_OBJ = 'restaurantObj';
+
+
+
 /**
  * Common database helper functions.
  */
