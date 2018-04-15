@@ -1,7 +1,5 @@
 //import idb from 'idb.js';
-//
-// const IDB_DB = 'restaurantDb';
-// const IDB_OBJ = 'restaurantObj';
+
 
 
 
@@ -19,16 +17,35 @@ class DBHelper {
     return `http://localhost:1337/restaurants`;
   }
 
-
-static idbOpen() {
+// Open idb
+static openIDB() {
 return idb.open('Restaurant_IDB', 1, function(upgradeDb){
-    var store = upgradeDb.createObjectStore('keyVal', {
+    var keyValStore = upgradeDb.createObjectStore('keyval', {
         keyPath: 'id'
     });
-    store.createIndex('restaurant_id', 'id');
+    keyValStore.createIndex('restaurant_id', 'id');
 });
 
 }
+
+// Save data to idb
+  static saveIDB(data){
+  return DBHelper.openIDB().then(function(db) {
+      if (!db)
+          return;
+
+      var tx = db.transaction('keyval', 'readwrite');
+      var keyValStore = tx.objectStore('keyval');
+      data.forEach(function(restaurant)
+      {
+          keyValStore.put(restaurant);
+      });
+      return tx.complete;
+  }).then(function(){
+    console.log('Added restaurants to idb');
+  });
+}
+
 
 
   /**
