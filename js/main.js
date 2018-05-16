@@ -1,8 +1,9 @@
+
 let restaurants,
   neighborhoods,
-  cuisines
-var map
-var markers = []
+  cuisines;
+var map;
+var markers = [];
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -10,16 +11,22 @@ var markers = []
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
+
 });
 
-// if (!('indexedDB' in window)) {
-//     console.log('This browser doesn\'t support IndexedDB');
-// }
-// else{
-//   console.log('indexedDB is supported, YES');
-// }
-//
+// Test idb code to see if I can actually get it working in DEV TOOLS!!!!!
+var idbApp = (function() {
+    'use strict';
 
+    if (!('indexedDB' in window)) {
+        console.log('This browser doesn\'t support IndexedDB');
+        return;
+    }
+    else{console.log('It does not work!');}
+
+
+    var dbPromise = idb.open('TEST IDB', 1);
+})();
 
 /**
  * Fetch all neighborhoods and set their HTML.

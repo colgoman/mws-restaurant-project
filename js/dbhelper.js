@@ -1,8 +1,3 @@
-//import idb from 'idb.js';
-
-
-
-
 /**
  * Common database helper functions.
  */
@@ -15,7 +10,9 @@ class DBHelper {
    */
   static get DATABASE_URL() {
     return `http://localhost:1337/restaurants`;
+
   }
+
 
 // Open idb
 static openIDB() {
