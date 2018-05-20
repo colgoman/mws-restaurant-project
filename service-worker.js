@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 importScripts('/cache-polyfill.js');
 
 self.addEventListener('install', function(e) {

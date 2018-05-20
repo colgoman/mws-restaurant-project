@@ -1,9 +1,16 @@
 /**
  * Common database helper functions.
  */
+
+var dbPromise;
 class DBHelper {
 
-
+/* Open Indexed DB */
+static openIDB() {
+    return idb.open('restaurant_DB_new' , 1  , function(upgradeDb) {
+        upgradeDb.createObjectStore('restaurants' ,{keyPath: 'id'});
+    });
+}
   /**
    * Database URL.
    * Change this to restaurants.json file location on your server.
@@ -14,54 +21,52 @@ class DBHelper {
   }
 
 
-// Open idb
-static openIDB() {
-return idb.open('Restaurant_IDB', 1, function(upgradeDb){
-    var keyValStore = upgradeDb.createObjectStore('keyval', {
-        keyPath: 'id'
+/* Get cached restaurants from IDB*/
+static getCachedRestaurants(){
+    dbPromise = DBHelper.openIDB();
+    return dbPromise.then(function (db) {
+        // check if db exists
+        if(!db) return;
+        var tx = db.transaction('restaurants');
+        var keyValStore = tx.objectStore('restaurants');
+
+        // get all from the store
+        return keyValStore.getAll();
+
     });
-    keyValStore.createIndex('restaurant_id', 'id');
-});
-
-}
-
-// Save data to idb
-  static saveIDB(data){
-  return DBHelper.openIDB().then(function(db) {
-      if (!db)
-          return;
-
-      var tx = db.transaction('keyval', 'readwrite');
-      var keyValStore = tx.objectStore('keyval');
-      data.forEach(function(restaurant)
-      {
-          keyValStore.put(restaurant);
-      });
-      return tx.complete;
-  }).then(function(){
-    console.log('Added restaurants to idb');
-  });
 }
 
 
 
-  /**
-   * Fetch all restaurants.
-   */
-  static fetchRestaurants(callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', DBHelper.DATABASE_URL);
-    xhr.onload = () => {
-      if (xhr.status === 200) { // Got a success response from server!
-        const restaurants = JSON.parse(xhr.responseText);
-        console.log(restaurants);
-        callback(null, restaurants);
-      } else { // Oops!. Got an error from server.
-        const error = (`Request failed. Returned status of ${xhr.status}`);
-        callback(error, null);
-      }
-    };
-    xhr.send();
+  /* Fetch all restaurants */
+  static fetchRestaurants(callback){
+    DBHelper.getCachedRestaurants().then(function(data){
+        // check if data is non-zero
+        if(data.length > 0) return callback(null , data);
+
+        // Update cache with restaurants
+        fetch(DBHelper.DATABASE_URL, {credentials:'same-origin'})
+            .then(result => {
+                console.log('Received fetch result: ', result);
+                return result.json()})
+            .then(data => {
+                dbPromise.then(function (db) {
+                    // check if db exists
+                    if(!db) return;
+                    console.log('Received fetch data:', data);
+
+                    var tx = db.transaction('restaurants' , 'readwrite');
+                    var keyValStore = tx.objectStore('restaurants');
+
+                    // Loop through and put each restaurant object
+                    data.forEach(restaurant => keyValStore.put(restaurant));
+
+                }).catch(error => {
+                    return callback(error,null);
+                })
+            });
+
+    });
   }
 
   /**
@@ -141,6 +146,7 @@ return idb.open('Restaurant_IDB', 1, function(upgradeDb){
    */
   static fetchNeighborhoods(callback) {
     // Fetch all restaurants
+
     DBHelper.fetchRestaurants((error, restaurants) => {
       if (error) {
         callback(error, null);
