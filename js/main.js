@@ -5,12 +5,23 @@ var map
 var markers = []
 
 /**
+ * Test for service worker registration
+ */
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+        .then(function(registration) {
+            console.log('Registration successful, scope is:', registration.scope);
+        })
+        .catch(function(error) {
+            console.log('Service worker registration failed, error:', error);
+        });
+}
+
+/**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  fetchNeighborhoods();
-  fetchCuisines();
-
+    updateRestaurants();
 });
 
 
@@ -83,7 +94,8 @@ window.initMap = () => {
     center: loc,
     scrollwheel: false
   });
-  updateRestaurants();
+  // add markers to map at init
+    addMarkersToMap();
 }
 
 /**
@@ -103,8 +115,10 @@ updateRestaurants = () => {
     if (error) { // Got an error!
       console.error(error);
     } else {
-      resetRestaurants(restaurants);
-      fillRestaurantsHTML();
+        resetRestaurants(restaurants);
+        fillRestaurantsHTML();
+        fetchNeighborhoods();
+        fetchCuisines();
     }
   })
 }
@@ -132,7 +146,6 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
-  addMarkersToMap();
 }
 
 /**
