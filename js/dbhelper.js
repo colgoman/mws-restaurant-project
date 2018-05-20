@@ -7,7 +7,7 @@ class DBHelper {
 
 /* Open Indexed DB */
 static openIDB() {
-    return idb.open('restaurant_DB_new' , 1  , function(upgradeDb) {
+    return idb.open('restaurant_IDB' , 1  , function(upgradeDb) {
         upgradeDb.createObjectStore('restaurants' ,{keyPath: 'id'});
     });
 }
