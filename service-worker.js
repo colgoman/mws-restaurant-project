@@ -52,13 +52,13 @@ self.addEventListener('activate', function(event) {
 
 /* fetch Images function */
 function fetchImage(request){
-    return caches.openIDB(imageCache).then(function(cache){
+    return caches.open(imageCache).then(function(cache){
         return cache.match(request).then(function (response) {
             // check response exists
             if (response) return response;
             
             return fetch(request).then (function (networkResponse) {
-                // puth network response into cache
+                // put network response into cache
                 cache.put(request,networkResponse.clone());
                 return networkResponse;
             });

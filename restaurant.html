@@ -48,9 +48,31 @@
     <!-- end restaurant -->
     <!-- Beginning reviews -->
     <section id="reviews-container">
-      <ul id="reviews-list"></ul>
+    <h3>User Reviews</h3>
+
+
+    <div id="UserReviews">
+    <h2>Add Review</h2>
+    <form class="ReviewsForm" id = "ReviewsForm" action="http://localhost:1337/reviews/" method = "POST">
+    <label for = "name">Name</label>
+    <input aria-label="Type your name here" id = "name" type="text" placeholder="Type your name here" required>
+    <div id="User rating">
+    <input type="radio" name="rating" value="1">1
+    <input type="radio" name="rating" value="2">2
+    <input type="radio" name="rating" value="3">3
+    <input type="radio" name="rating" value="4">4
+    <input type="radio" name="rating" value="5" checked>5
+    </div>
+    <textarea id="comments" name="comments" cols="50" rows="10" placeholder="Please type your comments" required></textarea>
+    </form>
+    <button type="submit" form="ReviewsForm" value="Submit">Submit</button>
+    </div>
+
+    <ul id="reviews-list"></ul>
     </section>
     <!-- End reviews -->
+
+
   </main>
   <!-- End main -->
 
