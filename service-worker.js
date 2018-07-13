@@ -29,7 +29,7 @@ self.addEventListener('install', function(e) {
 /* activate event */
 self.addEventListener('activate', function(event) {
 
-    console.log(event.request.url);
+    //console.log(event.request.url);
 
     event.waitUntil(
         // get cache keys
