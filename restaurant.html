@@ -41,6 +41,7 @@
     <section id="restaurant-container">
       <h2 id="restaurant-name"></h2>
       <img id="restaurant-img">
+      <button aria-label="favoriteRestaurant" id="heart">Favourite</button>
       <p id="restaurant-cuisine"></p>
       <p id="restaurant-address"></p>
       <table id="restaurant-hours"></table>
@@ -53,15 +54,22 @@
 
     <div id="UserReviews">
     <h2>Add Review</h2>
-    <form class="ReviewsForm" id = "ReviewsForm" action="http://localhost:1337/reviews/" method = "POST">
+    <form class="ReviewsForm" id = "ReviewsForm">
     <label for = "name">Name</label>
     <input aria-label="Type your name here" id = "name" type="text" placeholder="Type your name here" required>
-    <div id="User rating">
-    <input type="radio" name="rating" value="1">1
-    <input type="radio" name="rating" value="2">2
-    <input type="radio" name="rating" value="3">3
-    <input type="radio" name="rating" value="4">4
-    <input type="radio" name="rating" value="5" checked>5
+    <!--<div id="User rating">-->
+    <!--<label>Rating:-->
+      <!--<input type="radio" name="rating" value="1">1-->
+      <!--<input type="radio" name="rating" value="2">2-->
+      <!--<input type="radio" name="rating" value="3">3-->
+      <!--<input type="radio" name="rating" value="4">4-->
+      <!--<input type="radio" name="rating" value="5" checked>5-->
+    <!--</label>-->
+    <!--</div>-->
+    <div class="ratingslider">
+    <input type="range" min="1" max="5" value="5" class="slider" id="rating">
+      <span>Rating: </span>
+      <span id="output" ></span>
     </div>
     <textarea id="comments" name="comments" cols="50" rows="10" placeholder="Please type your comments" required></textarea>
     </form>
@@ -92,6 +100,17 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtWk_HrC9q7aRVR-I14iQfKTh5hKIrJkc&libraries=places&callback=initMap"></script>
   <!-- End scripts -->
 
+<!--Reference from https://www.w3schools.com/howto/howto_js_rangeslider.asp-->
+<script>
+var slider = document.getElementById("rating");
+var output = document.getElementById("output");
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+output.innerHTML = this.value;
+}
+</script>
 
 </body>
 
