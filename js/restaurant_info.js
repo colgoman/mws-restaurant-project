@@ -139,32 +139,13 @@ function fillFormHtml(){
     // TEST - Print parameters to console
     console.log({restaurantId,name,rating, comments});
 
-    // const data = await fetch(
-    //     `${serverURL}/reviews`,
-    //     {
-    //
-    //       method: "POST",
-    //       headers: {
-    //       "Content-Type": "application/json",
-    //         Accept: "application/json"
-    //       },
-    //       body: JSON.stringify({
-    //           restaurant_id: restaurantId,
-    //           rating: rating,
-    //           comments,
-    //           name
-    //       })
-    //
-    //     });
-    //     const json = await data.json();
-    //     console.log(json)
-    //   DBHelper.postReview({restaurantId,name,rating, comments}).then(
-    //       reviews => {
-    //         fillReviewsHTML(reviews);
-    //         // reset form after review submitted
-    //         form.reset();
-    //       }
-    //   );
+      DBHelper.postReview({restaurantId,name,rating, comments}).then(
+          reviews => {
+            fillReviewsHTML(reviews);
+            // reset form after review submitted
+            form.reset();
+          }
+      );
   };
   }
 

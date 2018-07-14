@@ -2,12 +2,18 @@
  * Common database helper functions.
  */
 
-// Declare promises
+// Declare restaurant and review promises
 const restaurantPromise = idb.open('restaurant_IDB' , 1  , function(upgradeDb) {
     upgradeDb.createObjectStore('restaurants' ,{keyPath: 'id'})});
 
 const reviewPromise = idb.open('review_IDB' , 1  , function(upgradeDb) {
     upgradeDb.createObjectStore('reviews', {keyPath: 'id'})});
+
+// Declare offline promise
+const offlinePromise = idb.open('offline_IDB' , 1  , function(upgradeDb) {
+    upgradeDb.createObjectStore('offline', {keyPath: 'id'})});
+
+
 
 
     class DBHelper {
@@ -38,6 +44,42 @@ const reviewPromise = idb.open('review_IDB' , 1  , function(upgradeDb) {
             });
         }
 
+
+        static async offlineRequests() {
+            console.log("Started offline requests");
+
+            const offlineIDB = await offlinePromise;
+            const offlineTx = offlineIDB.transaction("offline","readwrite");
+            const offlineStore = offlineTx.objectStore("offline");
+            // get all offline reviews
+            const offlineReviews = await offlineStore.getAll();
+
+
+            // ZERO Check
+            if(offlineReviews <= 0)
+                return;
+
+            return Promise.all(
+                offlineReviews.map(review => {
+                    return this.requestReview(review).then(async data =>{
+                        const offlineReviewsTx = offlineIDB.transaction("offline","readwrite");
+                        const offlineReviewsStore = offlineReviewsTx.objectStore("offline");
+                        await offlineReviewsStore.clear();
+
+                        const json = await data.json();
+                        const reviewsIDB  = await reviewPromise;
+                        const reviewsTX = reviewsIDB.transaction("reviews", "readwrite");
+
+                        const reviewsStore = reviewsTX.objectStore("reviews");
+                        //store json data in reviews store
+                        reviewsStore.put(json);
+                        return;
+
+                    });
+                }),
+
+            );
+        }
 
         /* Fetch all restaurants */
         static fetchRestaurants(callback) {
@@ -209,6 +251,91 @@ const reviewPromise = idb.open('review_IDB' , 1  , function(upgradeDb) {
             );
             return marker;
         }
+
+
+        static fireSyncEvent() {
+            // google dev background sync
+            if ("serviceWorker" in navigator && "SyncManager" in window) {
+                navigator.serviceWorker.ready
+                    .then(function(reg) {
+                        return reg.sync.register("offline-requests");
+                    })
+                    .catch(() => {
+                        this.offlineRequests();
+                    });
+            } else {
+                // if service worker not supported
+                this.offlineRequests();
+            }
+        }
+
+        static requestReview({ restaurantId, rating, comments, name }) {
+            return fetch(`${this.DATABASE_URL}/reviews/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                },
+                body: JSON.stringify({
+                    restaurant_id: restaurantId,
+                    rating: rating,
+                    comments,
+                    name
+                })
+
+            });
+        }
+
+
+        // Asynchronous post review
+        static async postReview(restaurantReview){
+            // try catch for receiving json data
+            try {
+                const data = await this.requestReview(restaurantReview);
+                console.log("Async postReview: " + data);
+
+                this.fireSyncEvent();
+                const json = await data.json();
+                const reviewsIDB = await reviewPromise;
+                const reviewsTx = reviewsIDB.transaction("reviews", "readwrite");
+                const reviewsStore = reviewsTx.objectStore("reviews");
+                reviewsStore.put(json);
+
+                const fullReviews = await reviewsStore.getAll();
+                // filter received review data by restaurant id
+                const reviews = fullReviews.filter(r => r["restaurant_id"] == restaurantReview.restaurantId);
+
+                return reviews;
+            }
+
+            catch(e){
+                const offlineIDB = await offlinePromise;
+                const offlineTx = offlineIDB.transaction("offline", "readwrite");
+                const offlineStore = offlineTx.objectStore("offline");
+
+                offlineStore.put(restaurantReview,`${restaurantReview.restaurantId}${restaurantReview.rating}`
+                );
+
+                const reviewsIDB = await reviewPromise;
+                const reviewsTx = reviewsIDB.transaction("reviews", "readwrite");
+                const reviewsStore = reviewsTx.objectStore("reviews");
+                const fullReviews = await reviewsStore.getAll();
+                const reviews = fullReviews.filter(r => r["restaurant_id"] == restaurantReview.restaurantId);
+
+                // test
+                //restaurantReview.rating = restaurantReview.rating
+                reviews.push(restaurantReview);
+                return reviews;
+
+
+            }
+
+
+
+
+        }
+
+
     }
 
 
