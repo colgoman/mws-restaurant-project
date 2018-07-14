@@ -61,6 +61,18 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   image.setAttribute("alt",restaurant.name + " view");
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
+  // get favourite button
+  const fav = document.getElementById("fav");
+  let isFavourite = restaurant["is_favourite"] =="true";
+  fav.className = isFavourite ? "favourite" :"";
+
+  // onlick favourite button
+    fav.onclick = () => favourite(isFavourite, newState => {
+      isFavourite = !isFavourite;
+      fav.className = newState ? "favourite": "";
+    });
+
+
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
 
@@ -139,7 +151,7 @@ function fillFormHtml(){
     // TEST - Print parameters to console
     console.log({restaurantId,name,rating, comments});
 
-      DBHelper.postReview({restaurantId,name,rating, comments}).then(
+      DBHelper.postReview({restaurantId,name,rating,comments}).then(
           reviews => {
             fillReviewsHTML(reviews);
             // reset form after review submitted
@@ -199,3 +211,12 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
+
+// post favourite flag on restaurant to DBHelper
+function favourite(previousState, callback) {
+    const id = getParameterByName("id");
+    DBHelper.favouriteRestaurant(id, !previousState).then(result => {
+        callback(!previousState);
+    });
+}
+
