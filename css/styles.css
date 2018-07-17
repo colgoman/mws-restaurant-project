@@ -344,7 +344,7 @@ nav h1 a {
 /*Reference from https://www.w3schools.com/howto/howto_js_rangeslider.asp*/
 .slider {
     -webkit-appearance: none;
-    width: 50%;
+    width: 80%;
     height: 15px;
     border-radius: 5px;
     background: #d3d3d3;
@@ -372,3 +372,43 @@ nav h1 a {
     cursor: pointer;
 }
 
+
+
+input#name{
+    width: 80%;
+
+}
+textarea#comments{
+    width: 80%;
+}
+form {
+    margin-left: 25%;
+    margin-right:25%;
+    width: 50%;
+}
+
+span{
+    color: #f58500;
+    text-align: center;
+    letter-spacing: 3px;
+    font-size: large;
+}
+
+#UserReviews button{
+    font-size: 24px;
+    border-radius: 12px;
+    -webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.5s;
+    background-color: #f58500;
+    color: white;
+    outline-color: white;
+    margin-left: 25%;
+    margin-right:25%;
+
+
+}
+
+#UserReviews button:hover {
+    background-color: white; /* Green */
+    color: #f58500;
+}

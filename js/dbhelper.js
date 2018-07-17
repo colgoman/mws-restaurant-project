@@ -106,36 +106,6 @@ const favouritePromise = idb.open('favourite_IDB' , 1  , function(upgradeDb) {
             );
         }
 
-        // static fetchRestaurants(callback) {
-        //     DBHelper.getCachedRestaurants().then(function (data) {
-        //         // check if data is non-zero
-        //         if (data.length > 0) return callback(null, data);
-        //
-        //         // Update cache with restaurants
-        //         fetch(DBHelper.DATABASE_URL, {credentials: 'same-origin'})
-        //             .then(result => {
-        //                 console.log('Received fetch result: ', result);
-        //                 return result.json()
-        //             })
-        //             .then(data => {
-        //                 restaurantPromise.then(function (db) {
-        //                     // check if db exists
-        //                     if (!db) return;
-        //                     console.log('Received fetch data:', data);
-        //
-        //                     var tx = db.transaction('restaurants', 'readwrite');
-        //                     var keyValStore = tx.objectStore('restaurants');
-        //
-        //                     // Loop through and put each restaurant object
-        //                     data.forEach(restaurant => keyValStore.put(restaurant));
-        //
-        //                 }).catch(error => {
-        //                     return callback(error, null);
-        //                 })
-        //             });
-        //
-        //     });
-        // }
 
         // incorporate cache into fetchRestaurants
         static fetchRestaurants(callback) {

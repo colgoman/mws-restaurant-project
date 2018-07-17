@@ -58,7 +58,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img';
   // add alt tag to image
-  image.setAttribute("alt",restaurant.name + " view");
+  image.setAttribute("alt","The image of the " + restaurant.name + " restaurant");
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   // get favourite button

@@ -8,6 +8,7 @@
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <!-- Main CSS file -->
   <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <link rel="manifest" href="/manifest.json">
   <title>Restaurant Info</title>
 </head>
 
@@ -55,14 +56,13 @@
     <div id="UserReviews">
     <h2>Add Review</h2>
     <form class="ReviewsForm" id = "ReviewsForm">
-    <label for = "name">Name</label>
-    <input aria-label="Type your name here" id = "name" type="text" placeholder="Type your name here" required>
+    <input aria-label="Type your name here" id = "name" type="text" placeholder="Name" required>
     <div class="ratingslider">
     <input type="range" min="1" max="5" value="5" class="slider" id="rating">
-      <span>Rating: </span>
+      <span id="ratingSpan">Rating: </span>
       <span id="output" ></span>
     </div>
-    <textarea id="comments" name="comments" cols="50" rows="10" placeholder="Please type your comments" required></textarea>
+    <textarea id="comments" name="comments" placeholder="Comments" required></textarea>
     </form>
     <button type="submit" form="ReviewsForm" value="Submit">Submit</button>
     </div>
