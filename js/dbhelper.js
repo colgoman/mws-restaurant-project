@@ -451,7 +451,7 @@ const favouritePromise = idb.open('favourite_IDB' , 1  , function(upgradeDb) {
             console.log("hit the fav");
             const url = `${
                 this.DATABASE_URL
-                }/restaurants/${id}/?is_favourite=${newState}`;
+                }/restaurants/${id}/?is_favorite=${newState}`;
             try {
                 const result = await fetch(url, {
                     method: "PUT",
@@ -463,7 +463,7 @@ const favouritePromise = idb.open('favourite_IDB' , 1  , function(upgradeDb) {
                 const json = await result.json();
 
                 // update local db
-                //this.offlineRequests();
+                this.offlineRequests();
                 console.log("didn't get here1");
                 const restaurantsIDB = await restaurantPromise;
                 const restaurantsTx = restaurantsIDB.transaction("restaurants", "readwrite");
@@ -482,7 +482,7 @@ const favouritePromise = idb.open('favourite_IDB' , 1  , function(upgradeDb) {
                 const restaurants = await restaurantStore.getAll();
                 // look for restaurant
                 const restaurant = restaurants.find(r => r.id == id);
-                restaurant["is_favourite"] = newState;
+                restaurant["is_favorite"] = newState;
                 restaurantStore.put(restaurant);
                 // schedule request for later
                 const favouriteIDB = await favouritePromise;

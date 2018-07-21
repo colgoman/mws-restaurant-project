@@ -41,8 +41,9 @@
     <!-- Beginning restaurant -->
     <section id="restaurant-container">
       <h2 id="restaurant-name"></h2>
-      <img id="restaurant-img">
-      <button aria-label="favoriteRestaurant" id="fav">&starf;</button>
+      <div aria-label="favouriteRestaurant" id="favouriteRestaurant"></div>
+      <!--<button aria-label="favouriteRestaurant" id="fav">&starf;</button>-->
+      <img id="restaurant-img" alt = "Image of selected restaurant">
       <p id="restaurant-cuisine"></p>
       <p id="restaurant-address"></p>
       <table id="restaurant-hours"></table>
@@ -102,6 +103,9 @@ slider.oninput = function() {
 output.innerHTML = this.value;
 }
 </script>
+
+
+
 
 </body>
 

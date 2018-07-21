@@ -61,20 +61,35 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   image.setAttribute("alt","The image of the " + restaurant.name + " restaurant");
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
-  // get favourite button
-  const fav = document.getElementById("fav");
-  let isFavourite = restaurant["is_favourite"] =="true";
-  fav.className = isFavourite ? "favourite" :"";
+  // fav button
+    const favouriteDiv = document.getElementById('favouriteRestaurant');
+
+    let favButton = document.createElement('button');
+    let isFavourite = restaurant["is_favorite"] === "true";
+    favButton.setAttribute('id', 'fav');
+    favButton.innerHTML = "♥";
+
+    favouriteDiv.appendChild(favButton);
+
+    favButton.className = isFavourite ? "favorite" : "";
+    console.log("favButton.className before :  " + favButton.className);
 
   // onlick favourite button
     fav.onclick = () => favourite(isFavourite, newState => {
       isFavourite = !isFavourite;
-      fav.className = newState ? "favourite": "";
+
+      // set css
+      changeFavouriteButton(newState);
+      console.log("Onclick favourite set to " + newState);
+
+      favButton.className = newState ? "favourite": "";
+      console.log("newState :  " + newState);
     });
 
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
+
 
   // fill operating hours
   if (restaurant.operating_hours) {
@@ -220,3 +235,17 @@ function favourite(previousState, callback) {
     });
 }
 
+
+function changeFavouriteButton(isFavourite) {
+  console.log("Changing fav button with: " + isFavourite);
+    if (!isFavourite) {
+        console.log("Setting false colour");
+        fav.style.backgroundColor = "palevioletred";
+        fav.style.color = "white";
+    }
+    else if (isFavourite){
+        console.log("Setting true colour");
+        fav.style.backgroundColor = "white";
+        fav.style.color = "palevioletred";
+    }
+}

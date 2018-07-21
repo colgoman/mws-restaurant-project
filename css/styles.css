@@ -412,3 +412,18 @@ span{
     background-color: white; /* Green */
     color: #f58500;
 }
+
+
+#fav {
+    background-color: palevioletred;
+    color: white;
+    font-size: 50px;
+    border-radius: 10px;
+}
+
+/*div#favouriteRestaurant{*/
+    /*display:block;*/
+    /*overflow: auto;*/
+
+/*}*/
+
