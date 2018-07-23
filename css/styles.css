@@ -61,6 +61,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
     height:100%;
     display:flex;
     flex-direction: column;
+    max-width: 1500px;
 }
 #footer {
     background-color: #444;
@@ -77,9 +78,10 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 /* ====================== Navigation ====================== */
 nav {
     width: 100%;
-    height: 80px;
+    height: 50px;
     background-color: #252831;
     text-align:center;
+
 }
 nav h1 {
     margin: auto;
@@ -97,7 +99,7 @@ nav h1 a {
     background-color: #eee;
     font-size: 17px;
     margin: 0;
-    height: 20px;
+    height: 15px;
 }
 
 /* Display list items side by side */
@@ -225,16 +227,18 @@ nav h1 a {
 
 /* ====================== Restaurant Details ====================== */
 .inside header {
-    position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
 }
 
+
+
 #map-container {
     height: 400px;
     width: 100%;
     background-color: #ccc;
+
 }
 
 .inside #map-container {
@@ -421,9 +425,10 @@ span{
     border-radius: 10px;
 }
 
-/*div#favouriteRestaurant{*/
-    /*display:block;*/
-    /*overflow: auto;*/
-
-/*}*/
-
+button#mapButton{
+    background-color: #f58500;
+    color: white;
+    width:100%;
+    font-size: 25px;
+    border-color: white;
+}

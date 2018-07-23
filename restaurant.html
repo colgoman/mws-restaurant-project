@@ -34,9 +34,12 @@
   <!-- Beginning main -->
   <main id="maincontent">
     <!-- Beginning map -->
-    <section id="map-container">
+    <section id="map-container"    style = "display:none">
       <div role="application" id="map"></div>
     </section>
+    <div>
+      <button id = "mapButton" onclick="showMap('map-container')">Toggle Map</button>
+    </div>
     <!-- End map -->
     <!-- Beginning restaurant -->
     <section id="restaurant-container">
@@ -104,6 +107,17 @@ output.innerHTML = this.value;
 }
 </script>
 
+<!--Script to toggle map-->
+<script>
+    function showMap(mapSection) {
+        if(document.getElementById(mapSection).style.display !== 'block')
+            document.getElementById(mapSection).style.display = 'block';
+        else{
+            document.getElementById(mapSection).style.display = 'none';
+        }
+    }
+
+</script>
 
 
 

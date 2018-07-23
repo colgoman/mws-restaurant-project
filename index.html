@@ -18,10 +18,14 @@
   </header>
 
   <main id="maincontent">
-    <section id="map-container">
-      <div role="application" aria-label="Map" id="map"></div>
+
+    <section id="map-container"    style = "display:none">
+      <div role="application" id="map"></div>
     </section>
-    <section>
+    <div>
+      <button id = "mapButton" onclick="showMap('map-container')">Toggle Map</button>
+    </div>
+
       <div class="filter-options">
         <h2>Filter Results</h2>
         <select tabindex="-2" aria-label="Neighborhoods" id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
@@ -42,13 +46,20 @@
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtWk_HrC9q7aRVR-I14iQfKTh5hKIrJkc&libraries=places&callback=initMap"></script>
-  <!--Lazy Load img script-->
-  <script>
-  var lazy = document.getElementsByClassName('lazy');
 
-  for(var i=0; i<lazy.length; i++){
-      lazy[i].src = lazy[i].getAttribute('data-src');
-  }</script>
+
+
+  <!--Script to toggle map-->
+  <script>
+      function showMap(mapSection) {
+          if(document.getElementById(mapSection).style.display !== 'block')
+              document.getElementById(mapSection).style.display = 'block';
+          else{
+              document.getElementById(mapSection).style.display = 'none';
+          }
+      }
+
+  </script>
 
   <footer id="footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
