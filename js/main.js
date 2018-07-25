@@ -1,8 +1,8 @@
 let restaurants,
   neighborhoods,
-  cuisines
-var map
-var markers = []
+  cuisines;
+var map;
+var markers = [];
 
 /**
  * Test for service worker registration
@@ -38,7 +38,7 @@ fetchNeighborhoods = () => {
       fillNeighborhoodsHTML();
     }
   });
-}
+};
 
 /**
  * Set neighborhoods HTML.
@@ -51,7 +51,7 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
     option.value = neighborhood;
     select.append(option);
   });
-}
+};
 
 /**
  * Fetch all cuisines and set their HTML.
@@ -65,7 +65,7 @@ fetchCuisines = () => {
       fillCuisinesHTML();
     }
   });
-}
+};
 
 /**
  * Set cuisines HTML.
@@ -79,7 +79,7 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
     option.value = cuisine;
     select.append(option);
   });
-}
+};
 
 /**
  * Initialize Google map, called from HTML.
@@ -96,7 +96,7 @@ window.initMap = () => {
   });
   // add markers to map at init
     addMarkersToMap();
-}
+};
 
 /**
  * Update page and map for current restaurants.
@@ -121,7 +121,7 @@ updateRestaurants = () => {
         fetchCuisines();
     }
   })
-}
+};
 
 /**
  * Clear current restaurants, their HTML and remove their map markers.
@@ -136,7 +136,7 @@ resetRestaurants = (restaurants) => {
   self.markers.forEach(m => m.setMap(null));
   self.markers = [];
   self.restaurants = restaurants;
-}
+};
 
 /**
  * Create all restaurants HTML and add them to the webpage.
@@ -146,7 +146,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
-}
+};
 
 /**
  * Create restaurant HTML.
@@ -157,8 +157,9 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   // add alt tag to image
-  image.setAttribute("alt",restaurant.name + " view")
+  image.setAttribute("alt",restaurant.name + " view");
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.setAttribute('data-src', image.src);
   li.append(image);
 
   const name = document.createElement('h2');
@@ -176,10 +177,10 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
+  li.append(more);
 
   return li
-}
+};
 
 /**
  * Add markers for current restaurants to the map.
@@ -193,4 +194,51 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     });
     self.markers.push(marker);
   });
+};
+
+
+// Lazy Load Images function - https://deanhume.com/lazy-loading-images-using-intersection-observer/
+
+// Get all of the images that are marked up to lazy load
+const images = document.querySelectorAll('restaurant-img');
+const config = {
+    // If the image gets within 50px in the Y axis, start the download.
+    rootMargin: '50px 0px',
+    threshold: 0.01
+};
+
+// The observer for the images on the page
+let observer = new IntersectionObserver(onIntersection, config);
+console.log("Observing images");
+images.forEach(image => {
+    observer.observe(image);
+});
+
+function onIntersection(entries) {
+    // Loop through the entries
+    entries.forEach(entry => {
+        // Are we in viewport?
+        if (entry.intersectionRatio > 0) {
+            console.log("We are in viewport");
+
+            // Stop watching and load the image
+            observer.unobserve(entry.target);
+            preloadImage(entry.target);
+        }
+    });
+}
+
+// Browser support check
+// If we don't have support for intersection observer, load the images immediately
+if (!('IntersectionObserver' in window)) {
+    Array.from(images).forEach(image => preloadImage(image));
+} else {
+    // It is supported, load the images
+    console.log("pre-loading images");
+    observer = new IntersectionObserver(onIntersection, config);
+    console.log("Finished intersection");
+    images.forEach(image => {
+
+        observer.observe(image);
+    });
 }

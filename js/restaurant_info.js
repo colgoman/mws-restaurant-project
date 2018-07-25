@@ -61,6 +61,11 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   image.setAttribute("alt","The image of the " + restaurant.name + " restaurant");
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
+  console.log(image.src);
+  // set data-src value
+    image.setAttribute('data-src', image.src);
+
+
   // fav button
     const favouriteDiv = document.getElementById('favouriteRestaurant');
 
@@ -248,4 +253,48 @@ function changeFavouriteButton(isFavourite) {
         fav.style.backgroundColor = "white";
         fav.style.color = "palevioletred";
     }
+}
+
+
+// Lazy Load Images function - https://deanhume.com/lazy-loading-images-using-intersection-observer/
+
+// Get all of the images that are marked up to lazy load
+const images = document.querySelectorAll('restaurant-img');
+const config = {
+    // If the image gets within 50px in the Y axis, start the download.
+    rootMargin: '50px 0px',
+    threshold: 0.01
+};
+
+// The observer for the images on the page
+let observer = new IntersectionObserver(onIntersection, config);
+images.forEach(image => {
+    observer.observe(image);
+});
+
+function onIntersection(entries) {
+    // Loop through the entries
+    entries.forEach(entry => {
+        // Are we in viewport?
+        if (entry.intersectionRatio > 0) {
+
+            // Stop watching and load the image
+            observer.unobserve(entry.target);
+            preloadImage(entry.target);
+        }
+    });
+}
+
+// Browser support check
+// If we don't have support for intersection observer, load the images immediately
+if (!('IntersectionObserver' in window)) {
+    Array.from(images).forEach(image => preloadImage(image));
+} else {
+    // It is supported, load the images
+    console.log("pre-loading images");
+    observer = new IntersectionObserver(onIntersection, config);
+    images.forEach(image => {
+
+        observer.observe(image);
+    });
 }
