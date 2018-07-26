@@ -71,8 +71,24 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
     let favButton = document.createElement('button');
     let isFavourite = restaurant["is_favorite"] === "true";
+    console.log(isFavourite);
+
     favButton.setAttribute('id', 'fav');
     favButton.innerHTML = "♥";
+
+    // Initial button style set
+    if(isFavourite === false) {
+        favButton.style.backgroundColor = "palevioletred";
+        favButton.style.color = "white";
+        console.log("WHITE");
+    }
+    else if(isFavourite === true) {
+        favButton.style.backgroundColor = "white";
+        favButton.style.color = "palevioletred";
+        console.log("PINK");
+    }
+    favButton.style.fontSize = "25px";
+
 
     favouriteDiv.appendChild(favButton);
 
