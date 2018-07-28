@@ -95,7 +95,7 @@ window.initMap = () => {
     scrollwheel: false
   });
   // add markers to map at init
-    addMarkersToMap();
+     addMarkersToMap();
 };
 
 /**
@@ -117,6 +117,7 @@ updateRestaurants = () => {
     } else {
         resetRestaurants(restaurants);
         fillRestaurantsHTML();
+        imageLazyLoad();
         fetchNeighborhoods();
         fetchCuisines();
     }
@@ -158,8 +159,8 @@ createRestaurantHTML = (restaurant) => {
   image.className = 'restaurant-img';
   // add alt tag to image
   image.setAttribute("alt",restaurant.name + " view");
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  image.setAttribute('data-src', image.src);
+  image.src = 'img/placeholder.webp';
+  image.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
   const name = document.createElement('h2');
@@ -197,48 +198,31 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 };
 
 
-// Lazy Load Images function - https://deanhume.com/lazy-loading-images-using-intersection-observer/
+// Lazy load image -> Reference: https://deanhume.com/lazy-loading-images-using-intersection-observer/
+function imageLazyLoad(){
+    var lazyImages = [].slice.call(document.querySelectorAll("img.restaurant-img"));
+    console.log(lazyImages);
+    console.log(lazyImages.length);
 
-// Get all of the images that are marked up to lazy load
-const images = document.querySelectorAll('restaurant-img');
-const config = {
-    // If the image gets within 50px in the Y axis, start the download.
-    rootMargin: '50px 0px',
-    threshold: 0.01
+    if ("IntersectionObserver" in window && "IntersectionObserverEntry" in window && "intersectionRatio" in window.IntersectionObserverEntry.prototype) {
+        console.log("Intersection Observer in window");
+        let lazyImageObserver = new IntersectionObserver(function(entries) {
+            console.log("lazyImageObserver created");
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    let lazyImage = entry.target;
+                    lazyImage.src = lazyImage.dataset.src;
+                    lazyImage.classList.remove("lazy");
+                    lazyImageObserver.unobserve(lazyImage);
+                }
+            });
+        });
+
+        lazyImages.forEach(function(lazyImage) {
+            lazyImageObserver.observe(lazyImage);
+        });
+    } else {
+        // Possibly fall back to a more compatible method here
+    }
 };
 
-// The observer for the images on the page
-let observer = new IntersectionObserver(onIntersection, config);
-console.log("Observing images");
-images.forEach(image => {
-    observer.observe(image);
-});
-
-function onIntersection(entries) {
-    // Loop through the entries
-    entries.forEach(entry => {
-        // Are we in viewport?
-        if (entry.intersectionRatio > 0) {
-            console.log("We are in viewport");
-
-            // Stop watching and load the image
-            observer.unobserve(entry.target);
-            preloadImage(entry.target);
-        }
-    });
-}
-
-// Browser support check
-// If we don't have support for intersection observer, load the images immediately
-if (!('IntersectionObserver' in window)) {
-    Array.from(images).forEach(image => preloadImage(image));
-} else {
-    // It is supported, load the images
-    console.log("pre-loading images");
-    observer = new IntersectionObserver(onIntersection, config);
-    console.log("Finished intersection");
-    images.forEach(image => {
-
-        observer.observe(image);
-    });
-}
