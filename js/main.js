@@ -187,16 +187,22 @@ createRestaurantHTML = (restaurant) => {
 /**
  * Add markers for current restaurants to the map.
  */
-addMarkersToMap = (restaurants = self.restaurants) => {
-  restaurants.forEach(restaurant => {
-    // Add marker to the map
-    const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
-    google.maps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url
-    });
-    self.markers.push(marker);
-  });
-};
+try {
+    console.log("Markers were added to the map");
+    addMarkersToMap = (restaurants = self.restaurants) => {
+            restaurants.forEach(restaurant => {
+                // Add marker to the map
+                const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
+                google.maps.event.addListener(marker, 'click', () => {
+                    window.location.href = marker.url
+                });
+                self.markers.push(marker);
+            });
+    };
+}
+catch(error){
+    console.log("Markers could not be added to the map");
+}
 
 
 // Lazy load image -> Reference: https://deanhume.com/lazy-loading-images-using-intersection-observer/
@@ -227,3 +233,18 @@ function imageLazyLoad(){
     }
 }
 
+function showMap(mapSection) {
+    try {
+        console.log("Map loaded");
+        console.log("Toggle map");
+        if (document.getElementById(mapSection).style.display !== 'block')
+            document.getElementById(mapSection).style.display = 'block';
+        else {
+            document.getElementById(mapSection).style.display = 'none';
+        }
+    }
+    catch(error){
+        console.log("Map loading problem");
+    }
+
+};

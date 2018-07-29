@@ -14,7 +14,7 @@ window.initMap = () => {
         center: restaurant.latlng,
         scrollwheel: false
       });
-      fillBreadcrumb();
+
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
   });
@@ -273,7 +273,7 @@ function showMap(mapSection) {
     else{
         document.getElementById(mapSection).style.display = 'none';
     }
-};
+}
 
 
 //Reference from https://www.w3schools.com/howto/howto_js_rangeslider.asp
