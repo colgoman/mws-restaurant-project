@@ -13,25 +13,25 @@
 <body>
   <header>
     <nav>
-      <h1><a href="/" tabindex="-3">Restaurant Reviews</a></h1>
+      <h1><a href="/" tabindex="-1">Restaurant Reviews</a></h1>
     </nav>
   </header>
 
   <main id="maincontent">
 
     <section id="map-container"    style = "display:none">
-      <div role="application" id="map"></div>
+      <div role="application" id="map" aria-label="map"></div>
     </section>
     <div>
-      <button id = "mapButton" onclick="showMap('map-container')">Toggle Map</button>
+      <button id = "mapButton" tabindex="0"  onclick="showMap('map-container')">Toggle Map</button>
     </div>
 
       <div class="filter-options">
         <h2>Filter Results</h2>
-        <select tabindex="-2" aria-label="Neighborhoods" id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <select tabindex="0" aria-label="Neighborhoods" id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select tabindex="-1" aria-label="Cuisines" id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+        <select tabindex="0" aria-label="Cuisines" id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
           <option value="all">All Cuisines</option>
         </select>
       </div>
@@ -50,16 +50,16 @@
 
 
   <!--Script to toggle map-->
-  <script>
-      function showMap(mapSection) {
-          if(document.getElementById(mapSection).style.display !== 'block')
-              document.getElementById(mapSection).style.display = 'block';
-          else{
-              document.getElementById(mapSection).style.display = 'none';
-          }
-      }
+  <!--<script>-->
+      <!--function showMap(mapSection) {-->
+          <!--if(document.getElementById(mapSection).style.display !== 'block')-->
+              <!--document.getElementById(mapSection).style.display = 'block';-->
+          <!--else{-->
+              <!--document.getElementById(mapSection).style.display = 'none';-->
+          <!--}-->
+      <!--}-->
 
-  </script>
+  <!--</script>-->
 
   <footer id="footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.

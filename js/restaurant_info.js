@@ -70,6 +70,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     const favouriteDiv = document.getElementById('favouriteRestaurant');
 
     let favButton = document.createElement('button');
+    favButton.setAttribute("tabindex","0");
     let isFavourite = restaurant["is_favorite"] === "true";
     console.log(isFavourite);
 
@@ -136,6 +137,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
     const day = document.createElement('td');
     day.innerHTML = key;
     row.appendChild(day);
+    day.setAttribute("tabindex","0");
 
     const time = document.createElement('td');
     time.innerHTML = operatingHours[key];
@@ -204,6 +206,7 @@ function fillFormHtml(){
 createReviewHTML = (review) => {
   const li = document.createElement('li');
   const name = document.createElement('p');
+  name.setAttribute("tabindex","0");
   name.innerHTML = review.name;
   li.appendChild(name);
 
@@ -225,12 +228,12 @@ createReviewHTML = (review) => {
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
-fillBreadcrumb = (restaurant=self.restaurant) => {
-  const breadcrumb = document.getElementById('breadcrumb');
-  const li = document.createElement('li');
-  li.innerHTML = restaurant.name;
-  breadcrumb.appendChild(li);
-};
+// fillBreadcrumb = (restaurant=self.restaurant) => {
+//   const breadcrumb = document.getElementById('breadcrumb');
+//   const li = document.createElement('li');
+//   li.innerHTML = restaurant.name;
+//   breadcrumb.appendChild(li);
+// };
 
 /**
  * Get a parameter by name from page URL.
@@ -272,3 +275,25 @@ function changeFavouriteButton(isFavourite) {
 }
 
 
+function showMap(mapSection) {
+    console.log("Toggle map");
+    if(document.getElementById(mapSection).style.display !== 'block')
+        document.getElementById(mapSection).style.display = 'block';
+    else{
+        document.getElementById(mapSection).style.display = 'none';
+    }
+};
+
+
+//Reference from https://www.w3schools.com/howto/howto_js_rangeslider.asp
+function outputUpdate() {
+  console.log("Value update");
+    var slider = document.getElementById("rating");
+    var output = document.getElementById("output");
+    output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+}

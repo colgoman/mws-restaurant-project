@@ -23,7 +23,7 @@
     <!-- Beginning breadcrumb -->
 
     <nav aria-label="Breadcrumb" id="breadcrumb" >
-    <li><a href="/" tabindex="1" id="home">Home</a></li>
+    <a href="/" tabindex="0" id="home">Home</a>
     </nav>
 
 
@@ -35,10 +35,10 @@
   <main id="maincontent">
     <!-- Beginning map -->
     <section id="map-container"    style = "display:none">
-      <div role="application" id="map"></div>
+      <div role="application" aria-label="map" id="map"></div>
     </section>
     <div>
-      <button id = "mapButton" onclick="showMap('map-container')">Toggle Map</button>
+      <button tabindex="0" id = "mapButton" onclick="showMap('map-container')">Toggle Map</button>
     </div>
     <!-- End map -->
     <!-- Beginning restaurant -->
@@ -58,14 +58,16 @@
 
     <div id="UserReviews">
     <h2>Add Review</h2>
-    <form class="ReviewsForm" id = "ReviewsForm">
+    <form aria-label="ReviewsForm" class="ReviewsForm" id = "ReviewsForm">
     <input aria-label="Type your name here" id = "name" type="text" placeholder="Name" required>
     <div class="ratingslider">
-    <input type="range" min="1" max="5" value="5" class="slider" id="rating">
+      <label>Rating from 1 - 5</label>
+    <input aria-label="SliderRating" type="range" min="1" max="5" value="5" aria-valuemin="1" aria-valuemax="5" aria-valuenow="5" class="slider" id="rating" oninput="outputUpdate(value)">
       <span id="ratingSpan">Rating: </span>
       <span id="output" ></span>
     </div>
-    <textarea id="comments" name="comments" placeholder="Comments" required></textarea>
+    <label>Add any comments</label>
+    <textarea aria-label="Comments" id="comments" name="comments" placeholder="Comments" required></textarea>
     </form>
     <button type="submit" form="ReviewsForm" value="Submit">Submit</button>
     </div>
@@ -80,7 +82,7 @@
 
   <!-- Beginning footer -->
   <footer id="footer">
-    Copyright (c) 2017 <a href="/" tabindex="2"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
   <!-- End footer -->
 
@@ -93,31 +95,6 @@
   <!-- Google Maps -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtWk_HrC9q7aRVR-I14iQfKTh5hKIrJkc&libraries=places&callback=initMap"></script>
   <!-- End scripts -->
-
-<!--Reference from https://www.w3schools.com/howto/howto_js_rangeslider.asp-->
-<script>
-var slider = document.getElementById("rating");
-var output = document.getElementById("output");
-output.innerHTML = slider.value; // Display the default slider value
-
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-output.innerHTML = this.value;
-}
-</script>
-
-<!--Script to toggle map-->
-<script>
-    function showMap(mapSection) {
-        if(document.getElementById(mapSection).style.display !== 'block')
-            document.getElementById(mapSection).style.display = 'block';
-        else{
-            document.getElementById(mapSection).style.display = 'none';
-        }
-    }
-
-</script>
-
 
 
 </body>

@@ -158,7 +158,7 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   // add alt tag to image
-  image.setAttribute("alt",restaurant.name + " view");
+  image.setAttribute("alt","The image of the " + restaurant.name + " restaurant");
   image.src = 'img/placeholder.webp';
   image.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
@@ -176,6 +176,7 @@ createRestaurantHTML = (restaurant) => {
   li.append(address);
 
   const more = document.createElement('a');
+  more.setAttribute("tabindex","0");
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more);
@@ -222,7 +223,7 @@ function imageLazyLoad(){
             lazyImageObserver.observe(lazyImage);
         });
     } else {
-        // Possibly fall back to a more compatible method here
+        console.log("Lazy load failed");
     }
 };
 
