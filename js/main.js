@@ -225,5 +225,5 @@ function imageLazyLoad(){
     } else {
         console.log("Lazy load failed");
     }
-};
+}
 

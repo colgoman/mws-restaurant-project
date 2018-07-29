@@ -244,9 +244,6 @@
   // TODO: remove this once browsers do the right thing with promises
   ['openCursor', 'openKeyCursor'].forEach(function(funcName) {
     [ObjectStore, Index].forEach(function(Constructor) {
-      // Don't create iterateKeyCursor if openKeyCursor doesn't exist.
-      if (!(funcName in Constructor.prototype)) return;
-
       Constructor.prototype[funcName.replace('open', 'iterate')] = function() {
         var args = toArray(arguments);
         var callback = args[args.length - 1];
@@ -289,13 +286,11 @@
       var p = promisifyRequestCall(indexedDB, 'open', [name, version]);
       var request = p.request;
 
-      if (request) {
-        request.onupgradeneeded = function(event) {
-          if (upgradeCallback) {
-            upgradeCallback(new UpgradeDB(request.result, event.oldVersion, request.transaction));
-          }
-        };
-      }
+      request.onupgradeneeded = function(event) {
+        if (upgradeCallback) {
+          upgradeCallback(new UpgradeDB(request.result, event.oldVersion, request.transaction));
+        }
+      };
 
       return p.then(function(db) {
         return new DB(db);

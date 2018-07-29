@@ -1,0 +1,20 @@
+{
+  "short_name": "Restaurant Reviews",
+  "name": "Restaurant Reviews",
+  "icons": [
+    {
+      "src":"img/fireworks-icon192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/512-512_icon.jpg",
+      "type": "image/jpg",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#fdfdfd",
+  "theme_color": "#333",
+  "display": "standalone"
+}
