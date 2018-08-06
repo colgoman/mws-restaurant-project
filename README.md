@@ -2,8 +2,8 @@
 ---
 #### _Three Stage Course Material Project - Restaurant Reviews_
 
-## Project Overview: Stage 2
-The current stage of this project is stage 2.
+## Project Overview
+This project was split up into 3 different projects.
 ### **Stage One**
 A static design was taken which that lacked accessibility. This was converted to be responsive on different sized displays and accessible for screen reader use. Progressive web app features were also added for offline use.
 ### **Stage Two**
@@ -14,6 +14,13 @@ Progressive Web App score should be at 90 or better.
 Performance score should be at 70 or better.
 Accessibility score should be at 90 or better.
 
+### **Stage Three**
+
+In Stage Three, I took the connected application which I built in Stage One and Stage Two and added additional functionality. I added a form which allowed users to create their own reviews. When the app is offline, the form will defer updating to the remote database until a connection is established. Functionality was also added to save a favourite restaurant. This app was to meet the required performance benchmarks which was tested using Lighthouse.
+
+Progressive Web App score should be at 90 or better.
+Performance score should be at 90 or better.
+Accessibility score should be at 90 or better.
 
 ### What do I do from here?
 
@@ -25,7 +32,7 @@ In a terminal, check the version of Python you have: `python -V`. If you have Py
 
 ### Note about ES6
 
-Most of the code in this project has been written to the ES6 JavaScript specification for compatibility with modern web browsers and future proofing JavaScript code. As much as possible, try to maintain use of ES6 in any additional JavaScript you write.
+Most of the code in this project has been written to the ES6 JavaScript specification for compatibility with modern web browsers and future proofing JavaScript code. 
 
 
 
